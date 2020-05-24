@@ -47,6 +47,10 @@
 <script src="../src/misc/sigma.misc.drawHovers.js"></script>
 <!-- END SIGMA IMPORTS -->
 <script src="../plugins/sigma.parsers.json/sigma.parsers.json.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/settings.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.def.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curve.js"></script>
+<script src="../plugins/sigma.renderers.edgeLabels/sigma.canvas.edges.labels.curvedArrow.js"></script>
 <div id="container">
   <style>
     #graph-container {
@@ -74,7 +78,19 @@
  * configuration object. The plugin will just add the "graph" key to it
  * before the instanciation.
  */
-sigma.parsers.json('data/arctic.json', {
-  container: 'graph-container'
-});
+  callback = function( g )
+  {
+    var s = new sigma({
+    graph: g,
+    renderer: {
+      container: document.getElementById('graph-container'),
+      type: 'canvas'
+    },
+    settings: {
+      edgeLabelSize: 'proportional',
+      labelSize: 'proportional'
+    }
+  });
+  };
+  sigma.parsers.json('data/arctic2.json', callback);
 </script>
